@@ -7,7 +7,14 @@ export const routes: Routes = [
 		path: '',
 		component: LayoutComponent,
 		children: [
-			{ path: '', component: HomeComponent }
+			{
+				path: '',
+				component: HomeComponent
+			}
 		]
-	}
+	},
+	{
+		path: '**',
+		redirectTo: ''
+	},
 ];
