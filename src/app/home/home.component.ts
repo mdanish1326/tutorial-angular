@@ -9,8 +9,11 @@ import { Subject, catchError, finalize, map, of, startWith } from 'rxjs';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { GenericModalComponent } from '../Components/generic-modal/generic-modal.component';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { IProduct } from '../model/Product.model';
 import { greaterThanZeroValidator } from '../validations/common.validation';
+import { HeaderComponent } from "../Components/header/header.component";
+import { SnackbarService } from '../services/snackbar.service';
 
 @Component({
   selector: 'app-home',
@@ -26,6 +29,8 @@ import { greaterThanZeroValidator } from '../validations/common.validation';
     MatInputModule,
     ReactiveFormsModule,
     FormsModule,
+    HeaderComponent,
+    MatProgressSpinnerModule
   ],
   providers: [
     { provide: MatDialogRef, useValue: {} },
@@ -39,6 +44,7 @@ export class HomeComponent implements OnInit {
   @ViewChild('modalBody') modalBody!: TemplateRef<HTMLElement>;
 
   productService = inject(ProductsService);
+  snackbarService = inject(SnackbarService);
   products: IProduct[] = [];
   $loading = new Subject<boolean>();
   error: string | null = null;
@@ -81,7 +87,19 @@ export class HomeComponent implements OnInit {
 
   updateProduct(id: number) {
     this.productService.updateProduct(id, this.productForm.value).subscribe(
-      () => this.getProducts()
+      (res) => {
+        this.products = this.products.map((product) => {
+          if (product.id === id) {
+            return { ...product, ...this.productForm.value };
+          }
+          return product;
+        })
+        this.snackbarService.openSnackBar("Product updated successfully!");
+      },
+      (err) => {
+        this.snackbarService.openSnackBar("Something went wrong!");
+        console.log(err);
+      }
     )
   }
 

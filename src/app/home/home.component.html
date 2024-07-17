@@ -1,5 +1,10 @@
-@if ($loading | async) {
-<p>Loading...</p>
+<!-- <app-header></app-header> -->
+
+@if (($loading | async) === null) {
+<div class="loader">
+	<mat-progress-spinner [mode]='"indeterminate"'>
+	</mat-progress-spinner>
+</div>
 } @else if (error) {
 <p>Error: {{ error }}</p>
 } @else {
