@@ -1,5 +1,3 @@
-<!-- <app-header></app-header> -->
-
 @if (($loading | async) === null) {
 <div class="loader">
 	<mat-progress-spinner [mode]='"indeterminate"'>
@@ -32,6 +30,7 @@
 	}
 </div>
 }
+
 <ng-template #modalBody>
 	<div class="form">
 		<form [formGroup]="productForm" (ngSubmit)="onSubmit()">

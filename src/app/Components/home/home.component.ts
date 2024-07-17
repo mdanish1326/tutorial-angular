@@ -3,17 +3,17 @@ import { NgOptimizedImage } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatInputModule } from '@angular/material/input';
-import { ProductsService } from '../services/products.service';
 import { AsyncPipe, JsonPipe } from '@angular/common';
 import { Subject, catchError, finalize, map, of, startWith } from 'rxjs';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
-import { GenericModalComponent } from '../Components/generic-modal/generic-modal.component';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { IProduct } from '../model/Product.model';
-import { greaterThanZeroValidator } from '../validations/common.validation';
-import { HeaderComponent } from "../Components/header/header.component";
-import { SnackbarService } from '../services/snackbar.service';
+import { GenericModalComponent } from '../generic-modal/generic-modal.component';
+import { HeaderComponent } from '../header/header.component';
+import { ProductsService } from '../../services/products.service';
+import { SnackbarService } from '../../services/snackbar.service';
+import { IProduct } from '../../model/Product.model';
+import { greaterThanZeroValidator } from '../../validations/common.validation';
 
 @Component({
   selector: 'app-home',

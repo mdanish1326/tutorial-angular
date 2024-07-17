@@ -4,10 +4,10 @@
   @if (data?.contentTemplate) {
   <ng-container [ngTemplateOutlet]="data.contentTemplate"></ng-container>
   }
-  {{data?.disabledConfirmBtn | async | json}}
 </div>
 
 <div mat-dialog-actions>
   <button mat-button (click)="onCancel()">{{ cancelButtonText }}</button>
-  <button mat-button [disabled]="(data?.disabledConfirmBtn | async) === false" (click)="onConfirm()">{{ confirmButtonText }}</button>
+  <button mat-button [disabled]="(data?.disabledConfirmBtn | async) === false" (click)="onConfirm()">{{
+    confirmButtonText }}</button>
 </div>
