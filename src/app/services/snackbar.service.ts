@@ -19,7 +19,7 @@ export class SnackbarService {
       duration: 5000,
       panelClass: ['success-snackbar'],
       horizontalPosition: 'right',
-      verticalPosition: 'top',
+      verticalPosition: 'bottom',
       ...config
     });
   }
