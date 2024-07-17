@@ -1,0 +1,67 @@
+@if ($loading | async) {
+<p>Loading...</p>
+} @else if (error) {
+<p>Error: {{ error }}</p>
+} @else {
+<div class="container">
+	@for(product of products; track product.id) {
+	<mat-card class="example-card" appearance="outlined">
+		<mat-card-header>
+			<div mat-card-avatar class="example-header-image"></div>
+			<mat-card-title>{{product.title}}</mat-card-title>
+			<mat-card-subtitle></mat-card-subtitle>
+		</mat-card-header>
+		<div class="justify-center">
+			<img [ngSrc]='product.image' alt={{product.title}} height="250" width="300" priority />
+		</div>
+		<mat-card-content>
+			<p>
+				{{product.description}}
+			</p>
+		</mat-card-content>
+		<mat-card-actions>
+			<button mat-button (click)="openModal(product)">EDIT</button>
+			<button mat-button>SHARE</button>
+		</mat-card-actions>
+	</mat-card>
+	}
+</div>
+}
+<ng-template #modalBody>
+	<div class="form">
+		<form [formGroup]="productForm" (ngSubmit)="onSubmit()">
+
+			<mat-form-field class="full-width">
+				<mat-label>Title</mat-label>
+				<input matInput formControlName="title" />
+				@if (productForm.hasError('required', 'title')) {
+				<mat-error>Please enter title</mat-error>
+				}
+			</mat-form-field>
+
+			<mat-form-field class="full-width">
+				<mat-label>Description</mat-label>
+				<input matInput formControlName="description" />
+			</mat-form-field>
+
+			<mat-form-field class="full-width">
+				<mat-label>Image</mat-label>
+				<input matInput formControlName="image" />
+			</mat-form-field>
+
+			<mat-form-field class="full-width">
+				<mat-label>Price</mat-label>
+				<input matInput formControlName="price" />
+				@if (productForm.hasError('greaterThanZero', 'price')) {
+				<mat-error>Price should be greater than 0</mat-error>
+				}
+			</mat-form-field>
+
+			<mat-form-field class="full-width">
+				<mat-label>Category</mat-label>
+				<input matInput formControlName="category" />
+			</mat-form-field>
+
+		</form>
+	</div>
+</ng-template>

@@ -1,0 +1,25 @@
+.container {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.example-card {
+    max-width: 400px;
+}
+
+.justify-center {
+    display: flex;
+    justify-content: center;
+}
+  
+.example-header-image {
+    // background-image: url('https://material.angular.io/assets/img/examples/shiba1.jpg');
+    // background-size: cover;
+}
+
+.full-width {
+    width: 100%;
+}
