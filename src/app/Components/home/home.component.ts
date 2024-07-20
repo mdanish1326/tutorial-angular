@@ -73,7 +73,7 @@ export class HomeComponent implements OnInit {
     this.getProducts();
   }
 
-  getProducts(limit: number = 30, skip: number = 0) {
+  getProducts(limit: number = 10, skip: number = 0) {
     this.$loading.next(true);
     this.productService.getProducts(limit).pipe(
       catchError((err) => {
