@@ -29,6 +29,15 @@
 	</mat-card>
 	}
 </div>
+
+<mat-paginator
+  showFirstLastButtons
+  [length]="totalProducts"
+  [pageSize]="currentPageSize"
+  [pageSizeOptions]="[5, 10, 25, 100]"
+  aria-label="Select page"
+  (page)="onPageChanged($event)"
+></mat-paginator>
 }
 
 <ng-template #modalBody>

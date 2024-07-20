@@ -8,8 +8,12 @@ export class ProductsService {
 
   constructor(private httpClient: HttpClient) { }
 
-  getProducts() {
-    return this.httpClient.get('https://fakestoreapi.com/products?limit=10');
+  addProduct(product: any) {
+    return this.httpClient.post('https://fakestoreapi.com/products', product);
+  }
+
+  getProducts(limit: number) {
+    return this.httpClient.get(`https://fakestoreapi.com/products?limit=${limit}`);
   }
 
   updateProduct(id: number, product: any) {

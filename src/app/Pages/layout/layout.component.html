@@ -1,7 +1,9 @@
 <div class="main-layout" id="main-layout">
     <app-header title="Home"></app-header>
     <div class="main-body">
-        <router-outlet></router-outlet>
+        <app-sidenav style="height: 100vh;">
+            <router-outlet></router-outlet>
+        </app-sidenav>
     </div>
     <app-footer></app-footer>
 </div>

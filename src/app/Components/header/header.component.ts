@@ -3,6 +3,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { SideNavigationComponent } from '../side-navigation/side-navigation.component';
+import { SidenavService } from '../../services/sidenav.service';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -11,7 +13,8 @@ import { SideNavigationComponent } from '../side-navigation/side-navigation.comp
     MatButtonModule,
     MatIconModule,
     MatToolbarModule,
-    SideNavigationComponent
+    SideNavigationComponent,
+    RouterLink
   ],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss'
@@ -20,7 +23,9 @@ export class HeaderComponent {
 
   @Input() title: string = 'Header Title';
 
-  toggleSidenav() { 
-    console.log('toggle side nav');
+  constructor(private sidenavService: SidenavService) { }
+
+  toggleSidenav() {
+    this.sidenavService.toggleSidenav();
   }
 }

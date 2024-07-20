@@ -1,0 +1,44 @@
+<div class="form-add-product">
+    <h2>Add new product</h2>
+    <form class="form" [formGroup]="productForm" (ngSubmit)="onSubmit()">
+        <mat-form-field>
+            <mat-label>Title</mat-label>
+            <input matInput formControlName="title" />
+            @if (productForm.hasError('required', 'title')) {
+            <mat-error>Please enter title</mat-error>
+            }
+        </mat-form-field>
+
+        <mat-form-field>
+            <mat-label>Description</mat-label>
+            <textarea matInput formControlName="description"></textarea>
+        </mat-form-field>
+
+        <mat-form-field>
+            <mat-label>Image</mat-label>
+            <input matInput formControlName="image" />
+        </mat-form-field>
+
+        <mat-form-field>
+            <mat-label>Price</mat-label>
+            <input matInput formControlName="price" />
+            @if (productForm.hasError('greaterThanZero', 'price')) {
+            <mat-error>Price should be greater than 0</mat-error>
+            }
+        </mat-form-field>
+
+        <!-- <mat-form-field class="full-width">
+				<mat-label>Category</mat-label>
+				<input matInput formControlName="category" />
+			</mat-form-field> -->
+
+        <button 
+            mat-raised-button 
+            color="primary" 
+            type="submit" 
+            [disabled]="(productForm.invalid)"
+            > 
+            Submit
+        </button>
+    </form>
+</div>

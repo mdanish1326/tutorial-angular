@@ -3,6 +3,7 @@ import { NgOptimizedImage } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatInputModule } from '@angular/material/input';
+import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { AsyncPipe, JsonPipe } from '@angular/common';
 import { Subject, catchError, finalize, map, of, startWith } from 'rxjs';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
@@ -30,7 +31,8 @@ import { greaterThanZeroValidator } from '../../validations/common.validation';
     ReactiveFormsModule,
     FormsModule,
     HeaderComponent,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    MatPaginator
   ],
   providers: [
     { provide: MatDialogRef, useValue: {} },
@@ -42,12 +44,15 @@ import { greaterThanZeroValidator } from '../../validations/common.validation';
 export class HomeComponent implements OnInit {
 
   @ViewChild('modalBody') modalBody!: TemplateRef<HTMLElement>;
+  @ViewChild('paginator') paginator!: MatPaginator;
 
   productService = inject(ProductsService);
   snackbarService = inject(SnackbarService);
   products: IProduct[] = [];
   $loading = new Subject<boolean>();
   error: string | null = null;
+  totalProducts = 100;
+  currentPageSize = 10;
 
   productForm = new FormGroup<any>({
     title: new FormControl('', [Validators.required]),
@@ -68,16 +73,16 @@ export class HomeComponent implements OnInit {
     this.getProducts();
   }
 
-  getProducts() {
+  getProducts(limit: number = 30, skip: number = 0) {
     this.$loading.next(true);
-    this.productService.getProducts().pipe(
+    this.productService.getProducts(limit).pipe(
       catchError((err) => {
         this.error = "Something went wrong";
         return of([]);
       }),
       finalize(() => this.$loading.next(false))
     ).subscribe(
-      (data: any) => this.products = data
+      (data: any) => this.products = data.slice(skip, limit)
     );
   }
 
@@ -133,5 +138,13 @@ export class HomeComponent implements OnInit {
       }
     });
 
+  }
+
+  onPageChanged(event: PageEvent) {
+    const {pageSize, pageIndex} = event;
+    this.currentPageSize = pageSize;
+    const limit = pageSize * (pageIndex + 1);
+    const skip = pageSize * pageIndex;
+    this.getProducts(limit, skip);
   }
 }

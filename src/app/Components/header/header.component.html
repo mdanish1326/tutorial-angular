@@ -5,8 +5,8 @@
     <span class="title">{{ title }}</span>
     <span class="spacer"></span>
     <!-- <ng-content select="[header-actions]"></ng-content> -->
-    <button mat-icon-button>
-        <mat-icon>notifications</mat-icon>
+    <button mat-icon-button [routerLink]="'/add-product'">
+        <mat-icon>add_circle</mat-icon>
     </button>
     <button mat-icon-button>
         <mat-icon>account_circle</mat-icon>
