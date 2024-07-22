@@ -6,7 +6,7 @@ import { MatError, MatFormField, MatLabel } from '@angular/material/form-field';
 import { MatButton } from '@angular/material/button';
 import { MatInput } from '@angular/material/input';
 import { LocalStorageService } from '../../services/local-storage.service';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-signup',
@@ -29,7 +29,7 @@ export class SignupComponent extends AuthFormBase {
 
   localStorageService = inject(LocalStorageService);
 
-  constructor(override fb: FormBuilder) {
+  constructor(override fb: FormBuilder, private router: Router) {
     super(fb);
     this.addSignupFields();
   }
@@ -44,6 +44,7 @@ export class SignupComponent extends AuthFormBase {
     if (this.authForm.valid) {
       console.log(this.authForm.value);
       this.localStorageService.set('user', this.authForm.value);
+      this.router.navigate(['/login']);
     }
   }
 }
