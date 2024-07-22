@@ -1,27 +1,40 @@
 <div class="auth-form-container">
-	<h1>Login</h1>
 	<form class="auth-from" [formGroup]="authForm" (ngSubmit)="onSubmit()">
+		<h1>Signup</h1>
 		<mat-form-field>
-			<mat-label>Username*</mat-label>
+			<mat-label>Username</mat-label>
 			<input matInput formControlName="username" />
 			@if (authForm.hasError('required', 'username')) {
 			<mat-error>*Please enter username</mat-error>
 			}
 		</mat-form-field>
+
+		<mat-form-field>
+			<mat-label>Email</mat-label>
+			<input matInput formControlName="email" />
+			@if (authForm.hasError('required', 'email')) {
+			<mat-error>*Email is Required</mat-error>
+			}
+			@if(authForm.hasError('email', 'email')) {
+			<mat-error>*Please enter valid email</mat-error>
+			}
+		</mat-form-field>
+
 		<mat-form-field>
 			<mat-label>Password*</mat-label>
 			<input matInput formControlName="password" type="password" />
 			@if (authForm.hasError('passwordErr', 'password')) {
 			<mat-error>
 				*Please enter password containing at least 8 characters at least
-				one uppercase letter,
-				one lowercase letter, one number and
-				one special character.
+				1 uppercase letter,
+				1 lowercase letter, one number and
+				1 special character.
 			</mat-error>
 			}
 		</mat-form-field>
-		<button mat-raised-button color="primary" type="submit" disabled="{{ authForm.invalid }}">
-			Login
+
+		<button mat-raised-button color="primary" type="submit" [disabled]="authForm.invalid">
+			Signup
 		</button>
 	</form>
 </div>

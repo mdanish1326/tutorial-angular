@@ -5,6 +5,8 @@ import { AddProductComponent } from './Components/add-product/add-product.compon
 import { ProfileComponent } from './Components/profile/profile.component';
 import { AuthGuard } from './guards/auth.guard';
 import { LoginComponent } from './Components/login/login.component';
+import { OuterLayoutComponent } from './layouts/outer-layout/outer-layout.component';
+import { SignupComponent } from './Components/signup/signup.component';
 
 export const routes: Routes = [
 	{
@@ -30,7 +32,19 @@ export const routes: Routes = [
 	},
 	{
 		path: 'login',
-		component: LoginComponent
+		component: OuterLayoutComponent,
+		children: [{
+			path: '',
+			component: LoginComponent
+		}]
+	},
+	{
+		path: 'signup',
+		component: OuterLayoutComponent,
+		children: [{
+			path: '',
+			component: SignupComponent
+		}]
 	},
 	{
 		path: '**',
