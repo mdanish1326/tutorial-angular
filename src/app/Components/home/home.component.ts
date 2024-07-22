@@ -44,7 +44,6 @@ import { greaterThanZeroValidator } from '../../validations/common.validation';
 export class HomeComponent implements OnInit {
 
   @ViewChild('modalBody') modalBody!: TemplateRef<HTMLElement>;
-  @ViewChild('paginator') paginator!: MatPaginator;
 
   productService = inject(ProductsService);
   snackbarService = inject(SnackbarService);
