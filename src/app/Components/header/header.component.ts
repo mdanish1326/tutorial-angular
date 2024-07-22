@@ -77,6 +77,7 @@ export class HeaderComponent {
   }
 
   deleteAccount() {
-    console.log("account deleted")
+    this.localStorageService.remove('user');
+    this.router.navigate(['/signup']);
   }
 }
