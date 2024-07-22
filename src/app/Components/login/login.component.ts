@@ -1,10 +1,8 @@
 import { Component, inject } from '@angular/core';
-import { FormBuilder, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButton } from '@angular/material/button';
 import { MatError, MatFormField, MatInput, MatLabel } from '@angular/material/input';
-import { passwordValidator } from '../../validations/common.validation';
 import { AuthFormBase } from '../../baseClasses/auth-form.base';
-import { LocalStorageService } from '../../services/local-storage.service';
 import { AuthService } from '../../services/auth.service';
 import { Router, RouterLink } from '@angular/router';
 import { SnackbarService } from '../../services/snackbar.service';
@@ -40,12 +38,12 @@ export class LoginComponent extends AuthFormBase {
       const { username, password } = this.authForm.value;
       const { exist, valid }: UserMetadata = this.authService.isUserValid(username, password);
       if (exist && valid) {
-        this.snackbarService.openSnackBar('Login Successful');
+        this.snackbarService.openSnackBar('Login Successful!');
         this.router.navigate(['/home']);
-      } else if (!valid) {
-        this.snackbarService.openSnackBar('Invalid Credentials');
       } else if (!exist) {
-        this.snackbarService.openSnackBar('User does not exist');
+        this.snackbarService.openSnackBar('User does not exist, Signup first!');
+      } else if (!valid) {
+        this.snackbarService.openSnackBar('Password is incorrect!');
       }
     }
   }
