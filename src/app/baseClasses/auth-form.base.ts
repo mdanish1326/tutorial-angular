@@ -10,8 +10,8 @@ export abstract class AuthFormBase {
 
 	private createBaseForm(): FormGroup {
 		return this.fb.group({
-			username: ['', [Validators.required]],
-			password: ['', [passwordValidator()]]
+			username: ['', [Validators.required, Validators.minLength(5)]],
+			password: ['', [Validators.required, passwordValidator()]],
 		});
 	}
 

@@ -2,14 +2,16 @@
 	<h1>Login</h1>
 	<form class="auth-from" [formGroup]="authForm" (ngSubmit)="onSubmit()">
 		<mat-form-field>
-			<mat-label>Username*</mat-label>
+			<mat-label>Username</mat-label>
 			<input matInput formControlName="username" />
 			@if (authForm.hasError('required', 'username')) {
 			<mat-error>*Please enter username</mat-error>
+			} @if (authForm.hasError('minlength', 'username')) {
+			<mat-error>*Username should be atleast 5 characters long</mat-error>
 			}
 		</mat-form-field>
 		<mat-form-field>
-			<mat-label>Password*</mat-label>
+			<mat-label>Password</mat-label>
 			<input matInput formControlName="password" type="password" />
 			@if (authForm.hasError('passwordErr', 'password')) {
 			<mat-error>
@@ -24,4 +26,7 @@
 			Login
 		</button>
 	</form>
+	<div class="auth-form-footer">
+		Dont have an account? <a [routerLink]="'/signup'">Signup</a>
+	</div>
 </div>

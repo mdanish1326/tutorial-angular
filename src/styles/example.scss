@@ -1,20 +1,31 @@
 .loader {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
 }
 
 .auth-form-container {
-    width: 50vh;
-    border: 1px solid #ccc;
-    border-radius: 12px;
-    padding: 24px;
+  width: 50vh;
+  border: 1px solid #ccc;
+  border-radius: 12px;
+  padding: 24px;
 }
 
 .auth-from {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.auth-form-footer {
+  text-align: center;
+  margin-top: 12px;
+	a {
+		color: #3f51b5;
+	}
+  a:hover {
+    text-decoration: underline;
+  }
 }
