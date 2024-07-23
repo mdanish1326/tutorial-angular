@@ -16,7 +16,19 @@ a {
 }
 
 :root {
+    //colors
     --purple: #3F51B5;
+    --gray: gray;
+
+    //weight
+    --w-400: 400;
+    --w-500: 500;
+    --w-700: 700;
+
+    //font-size
+    --font-size-14: 14px;
+    --font-size-16: 16px;
+    --font-size-18: 18px;
 }
 
 ::ng-deep .snackbar-success {

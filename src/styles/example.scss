@@ -5,15 +5,21 @@
   height: 100vh;
 }
 
+.auth-form-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
 .auth-form-container {
-  width: 50vh;
+  width: 30%;
   border: 1px solid #ccc;
   border-radius: 12px;
   padding: 24px;
 }
 
 .auth-from {
-  width: 100%;
   display: flex;
   flex-direction: column;
   gap: 10px;
@@ -27,5 +33,12 @@
 	}
   a:hover {
     text-decoration: underline;
+  }
+}
+
+@media (max-width: 418px) {
+  .auth-form-container {
+    width: 80%;
+    padding: 16px;
   }
 }

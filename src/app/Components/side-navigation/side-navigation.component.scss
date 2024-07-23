@@ -1,17 +1,17 @@
 .menu-button {
-    transition: 300ms ease-in-out;
-    transform: rotate(0deg);
+  transition: 300ms ease-in-out;
+  transform: rotate(0deg);
 }
 .menu-button.rotated {
-    transform: rotate(180deg);
+  transform: rotate(180deg);
 }
   
 .submenu {
-		margin-left: 30px;
+	margin-left: 30px;
 }
 
 .submenu.expanded {
-    transform: scaleY(1);
+  transform: scaleY(1);
 }
 
 .item {
@@ -35,5 +35,20 @@
 .sidenav-right-content {
 	overflow: auto;
 	height: 100vh;
+}
+
+.sidenav-login-redirect {
+  height: 100vh; 
+  display: flex; 
+  flex-direction: column;
+  justify-content: center; 
+  align-items: center; 
+  gap: 8px;
+
+  .text {
+    color: var(--gray);
+    font-size: var(--font-size-14);
+    font-weight: var(--w-500);
+  }
 }
 

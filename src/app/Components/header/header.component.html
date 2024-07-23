@@ -5,9 +5,11 @@
     <span class="title">{{ title }}</span>
     <span class="spacer"></span>
     <!-- <ng-content select="[header-actions]"></ng-content> -->
-    <button mat-icon-button [routerLink]="'/add-product'">
-        <mat-icon>add_circle</mat-icon>
-    </button>
+    <ng-container *ngIf="authService.isAuthenticated()">
+        <button mat-icon-button [routerLink]="'/add-product'">
+            <mat-icon>add_circle</mat-icon>
+        </button>
+    </ng-container>
     <ng-container *ngIf="authService.isAuthenticated(); else loginRedirect">
         <button mat-icon-button [matMenuTriggerFor]="menu">
             <mat-icon>account_circle</mat-icon>

@@ -1,10 +1,12 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, Input, OnInit, ViewChild, inject } from '@angular/core';
 import { MatIcon, MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { MatSidenav, MatSidenavContainer, MatSidenavContent, MatSidenavModule } from '@angular/material/sidenav';
 import { SidenavService } from '../../services/sidenav.service';
-import { RouterLink, RouterLinkActive } from '@angular/router';
+import { Router, RouterLink, RouterLinkActive } from '@angular/router';
+import { AuthService } from '../../services/auth.service';
+import { MatButton } from '@angular/material/button';
 
 @Component({
   selector: 'app-sidenav',
@@ -18,6 +20,7 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
     MatSidenavModule,
     MatListModule,
     MatIconModule,
+    MatButton,
     RouterLink,
     RouterLinkActive
   ],
@@ -25,16 +28,21 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
   styleUrl: './side-navigation.component.scss'
 })
 export class SideNavigationComponent implements OnInit {
+
+  authService = inject(AuthService);
   @ViewChild('sidenav') sidenav!: MatSidenav;
-  @Input() isExpanded = true;
+  @Input() isExpanded = false;
   showSubmenu: boolean = false;
   isShowing = false;
   showSubSubMenu: boolean = false;
 
-  constructor(private sidenavService: SidenavService) { }
+  constructor(private sidenavService: SidenavService, public router: Router) { }
 
   ngOnInit() {
     this.sidenavService.sidenavToggle$.subscribe(() => this.sidenav.toggle());
+    if (this.authService.isAuthenticated()) {
+      this.isExpanded = true;
+    }
   }
 
   mouseenter() {
