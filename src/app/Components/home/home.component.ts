@@ -15,6 +15,7 @@ import { ProductsService } from '../../services/products.service';
 import { SnackbarService } from '../../services/snackbar.service';
 import { IProduct } from '../../model/Product.model';
 import { greaterThanZeroValidator } from '../../validations/common.validation';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-home',
@@ -47,6 +48,7 @@ export class HomeComponent implements OnInit {
 
   productService = inject(ProductsService);
   snackbarService = inject(SnackbarService);
+  authService = inject(AuthService);
   products: IProduct[] = [];
   $loading = new Subject<boolean>();
   error: string | null = null;
