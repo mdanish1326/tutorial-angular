@@ -64,7 +64,7 @@ export class HeaderComponent {
   confirmationDialog({ title, subtitle, cancelBtn, confirmBtn, func }: DialogData) {
     this.modalSubtitle = subtitle;
     const dialogRef = this.dialog.open(GenericModalComponent, {
-      width: '30%',
+      panelClass: 'dialog-container',
       data: {
         title: title,
         confirmButtonText: confirmBtn,
