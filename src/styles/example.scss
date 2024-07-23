@@ -36,7 +36,14 @@
   }
 }
 
-@media (max-width: 418px) {
+@media (max-width: 720px) {
+  .auth-form-container {
+    width: 60%;
+    padding: 16px;
+  }
+}
+
+@media (max-width: 520px) {
   .auth-form-container {
     width: 80%;
     padding: 16px;
