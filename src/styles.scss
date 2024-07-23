@@ -1,42 +1,27 @@
 @import './styles/example.scss';
+@import './styles/theme.scss';
 
 html,
 
 body {
-    margin: 0;
-    padding: 0;
-    font-family: sans-serif;
-    font-size: 16px;
-    line-height: 1.5;
-    color: #333;
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+  font-size: 16px;
+  line-height: 1.5;
+  color: #333;
 }
 
 a {
-    text-decoration: none;
-}
-
-:root {
-    //colors
-    --purple: #3F51B5;
-    --gray: gray;
-
-    //weight
-    --w-400: 400;
-    --w-500: 500;
-    --w-700: 700;
-
-    //font-size
-    --font-size-14: 14px;
-    --font-size-16: 16px;
-    --font-size-18: 18px;
+  text-decoration: none;
 }
 
 ::ng-deep .snackbar-success {
-    background-color: #4caf50 !important;
-    color: white !important;
+  background-color: #4caf50 !important;
+  color: white !important;
 }
 
 ::ng-deep .snackbar-failure {
-    background-color: #f44336 !important;
-    color: white !important;
+  background-color: #f44336 !important;
+  color: white !important;
 }

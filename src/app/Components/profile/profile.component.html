@@ -1,1 +1,49 @@
-<p>profile works!</p>
+<div class="profile-wrapper">
+	<h2>Profile</h2>
+	<div class="profile-container">
+		<div class="left-section">
+			<img [src]="profileImage" alt="Profile Image" (click)="onProfileImageClick()" class="profile-image" />
+			<input type="file" (change)="onFileSelected($event)" hidden #fileInput />
+		</div>
+		<div class="right-section">
+			<form class="profile-form" [formGroup]="authForm" (ngSubmit)="onSubmit()">
+				<mat-form-field>
+					<mat-label>Username</mat-label>
+					<input matInput formControlName="username" />
+				</mat-form-field>
+				<mat-form-field>
+					<mat-label>Email</mat-label>
+					<input matInput formControlName="email" />
+				</mat-form-field>
+
+				<mat-form-field>
+					<mat-label>Name</mat-label>
+					<input matInput formControlName="name" />
+				</mat-form-field>
+				<mat-form-field>
+					<mat-label>Address</mat-label>
+					<input matInput formControlName="address" />
+				</mat-form-field>
+
+				<div formArrayName="additionalFields">
+					<div *ngFor="let field of additionalFields.controls; let i = index" [formGroupName]="i">
+						<mat-form-field>
+							<mat-label>Field {{ i + 1 }}</mat-label>
+							<input matInput formControlName="field" />
+						</mat-form-field>
+						<button mat-icon-button color="warn" (click)="removeField(i)">
+							<mat-icon>remove_circle</mat-icon>
+						</button>
+					</div>
+				</div>
+				<button mat-raised-button color="primary" type="button" (click)="addField()" class="btn">
+					Add Field
+				</button>
+
+				<button mat-raised-button color="primary" type="submit" [disabled]="authForm.invalid">
+					Submit
+				</button>
+			</form>
+		</div>
+	</div>
+</div>

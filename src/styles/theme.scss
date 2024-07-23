@@ -1,0 +1,24 @@
+$base-size: 1rem;
+
+@function font-size($factor) {
+  @return $base-size * $factor;
+}
+
+:root {
+  //colors
+  --purple: #3F51B5;
+  --gray: gray;
+  --border-color: #ccc;
+
+  //weight
+  --w-400: 400;
+  --w-500: 500;
+  --w-700: 700;
+
+  //font-size
+  --size-8: #{font-size(0.5)}; 
+  --size-12: #{font-size(0.75)}; // 0.75 * base size (e.g., 0.75rem if base size is 1rem)
+  --size-14: #{font-size(0.875)}; 
+  --size-16: #{font-size(1)};
+  --size-18: #{font-size(1.125)};
+}
