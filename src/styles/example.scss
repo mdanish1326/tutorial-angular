@@ -36,7 +36,19 @@
   }
 }
 
+.edit-product-form-dialog {
+  width: 50%;
+}
+
+.dialog-container {
+  width: 30%;
+}
+
 @media (max-width: 720px) {
+  .dialog-container, .edit-product-form-dialog {
+    width: 100%;
+  }
+
   .auth-form-container {
     width: 60%;
     padding: 16px;
@@ -44,6 +56,9 @@
 }
 
 @media (max-width: 520px) {
+  .dialog-container, .edit-product-form-dialog {
+    width: 100%;
+  }
   .auth-form-container {
     width: 80%;
     padding: 16px;

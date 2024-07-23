@@ -118,7 +118,7 @@ export class HomeComponent implements OnInit {
     });
 
     const dialogRef = this.dialog.open(GenericModalComponent, {
-      width: '50%',
+      panelClass: 'edit-product-form-dialog',
       data: {
         title: `Update Product Details: ${product.title}`,
         confirmButtonText: 'Update',
@@ -140,7 +140,7 @@ export class HomeComponent implements OnInit {
   }
 
   onPageChanged(event: PageEvent) {
-    const {pageSize, pageIndex} = event;
+    const { pageSize, pageIndex } = event;
     this.currentPageSize = pageSize;
     const limit = pageSize * (pageIndex + 1);
     const skip = pageSize * pageIndex;
