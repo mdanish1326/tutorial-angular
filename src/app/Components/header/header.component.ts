@@ -12,6 +12,15 @@ import { GenericModalComponent } from '../generic-modal/generic-modal.component'
 import { AuthService } from '../../services/auth.service';
 import { CommonModule } from '@angular/common';
 
+
+interface DialogData {
+  title: string,
+  subtitle: string
+  cancelBtn: string,
+  confirmBtn: string,
+  func: () => void,
+}
+
 @Component({
   selector: 'app-header',
   standalone: true,
@@ -26,6 +35,7 @@ import { CommonModule } from '@angular/common';
     RouterLink
   ],
   providers: [
+    LocalStorageService,
     { provide: MatDialogRef, useValue: {} },
     { provide: MAT_DIALOG_DATA, useValue: {} },
   ],
@@ -39,24 +49,26 @@ export class HeaderComponent {
 
   @ViewChild('modalBody') modalBody!: TemplateRef<HTMLElement>;
   @Input() title: string = 'Header Title';
+  modalSubtitle: string = 'Subtitle';
 
   constructor(
     private sidenavService: SidenavService,
     private dialog: MatDialog,
-    public router: Router
+    public router: Router,
   ) { }
 
   toggleSidenav() {
     this.sidenavService.toggleSidenav();
   }
 
-  confirmLogout() {
+  confirmationDialog({ title, subtitle, cancelBtn, confirmBtn, func }: DialogData) {
+    this.modalSubtitle = subtitle;
     const dialogRef = this.dialog.open(GenericModalComponent, {
       width: '30%',
       data: {
-        title: `Confirm Logout`,
-        confirmButtonText: 'Logout',
-        cancelButtonText: 'Cancel',
+        title: title,
+        confirmButtonText: confirmBtn,
+        cancelButtonText: cancelBtn,
         contentTemplate: this.modalBody,
         disabledConfirmBtn: false
       }
@@ -64,9 +76,9 @@ export class HeaderComponent {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.logout();
+        func.bind(this)();
       } else {
-        console.log('Logout declined');
+        console.log(`${title} declined`);
       }
     });
   }

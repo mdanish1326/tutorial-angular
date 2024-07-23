@@ -27,11 +27,23 @@
         <mat-icon>edit</mat-icon>
         <span>Edit Profile</span>
     </button>
-    <button mat-menu-item (click)="confirmLogout()">
+    <button mat-menu-item (click)="confirmationDialog({
+        title: 'Confirm Logout',
+        subtitle: 'Are you sure you want to logout your account?',
+        cancelBtn: 'Cancel',
+        confirmBtn: 'Logout',
+        func: logout,
+    })">
         <mat-icon>logout</mat-icon>
         <span>Logout</span>
     </button>
-    <button mat-menu-item (click)="deleteAccount()">
+    <button mat-menu-item (click)="confirmationDialog({
+        title: 'Confirm Delete Account',
+        subtitle: 'Are you sure you want to delete your account?',
+        cancelBtn: 'Cancel',
+        confirmBtn: 'Delete',
+        func: deleteAccount,
+    })">
         <mat-icon>delete</mat-icon>
         <span>Delete Account</span>
     </button>
@@ -39,6 +51,6 @@
 
 <ng-template #modalBody>
     <div class="confim-body">
-        Are you sure you want to logout your account?
+        {{ modalSubtitle }}
     </div>
 </ng-template>
