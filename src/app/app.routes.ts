@@ -7,6 +7,7 @@ import { AuthGuard } from './guards/auth.guard';
 import { LoginComponent } from './Components/login/login.component';
 import { OuterLayoutComponent } from './layouts/outer-layout/outer-layout.component';
 import { SignupComponent } from './Components/signup/signup.component';
+import { DeactiveGuard } from './guards/deactive.guard';
 
 export const routes: Routes = [
 	{
@@ -15,12 +16,14 @@ export const routes: Routes = [
 		children: [
 			{
 				path: '',
-				component: HomeComponent
+				component: HomeComponent,
 			},
 			{
-				title: "Add Product",
 				path: 'add-product',
+				title: "Add Product",
 				component: AddProductComponent,
+				canActivate: [AuthGuard],
+				canDeactivate: [DeactiveGuard],
 				data: { title: "Add Product" }
 			},
 			{
