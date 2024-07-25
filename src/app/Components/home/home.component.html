@@ -7,7 +7,7 @@
 <p>Error: {{ error }}</p>
 } @else {
 <div class="container">
-	@for(product of products; track product.id) {
+	@for(product of products | filter: searchText; track product.id;) {
 	<mat-card class="example-card" appearance="outlined">
 		<mat-card-header>
 			<!-- <div mat-card-avatar class="example-header-image"></div> -->

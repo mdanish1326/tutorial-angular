@@ -1,4 +1,25 @@
 .spacer {
   flex: 1 1 auto;
 }
-  
+
+.search-input {
+  padding: 8px;
+  border-style: none;
+  border-radius: 4px;
+  &:focus {
+    outline: none;
+  }
+}
+
+.clear-btn {
+  font-size: 16px;
+  margin-top: 6px;
+  cursor: pointer;
+}
+
+.search-container {
+  display: flex;
+  border-radius: 4px;
+  background-color: #fff;
+  color: black;
+}

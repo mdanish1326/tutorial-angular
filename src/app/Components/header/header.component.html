@@ -1,56 +1,71 @@
 <mat-toolbar color="primary">
-    <button mat-icon-button (click)="toggleSidenav()">
-        <mat-icon>menu</mat-icon>
-    </button>
-    <span class="title">{{ title }}</span>
-    <span class="spacer"></span>
-    <!-- <ng-content select="[header-actions]"></ng-content> -->
-    <ng-container *ngIf="authService.isAuthenticated()">
-        <button mat-icon-button [routerLink]="'/add-product'">
-            <mat-icon>add_circle</mat-icon>
-        </button>
-    </ng-container>
-    <ng-container *ngIf="authService.isAuthenticated(); else loginRedirect">
-        <button mat-icon-button [matMenuTriggerFor]="menu">
-            <mat-icon>account_circle</mat-icon>
-        </button>
-    </ng-container>
-    <ng-template #loginRedirect>
-        <button mat-icon-button (click)="router.navigate(['/login'])">
-            <mat-icon>login</mat-icon>
-        </button>
-    </ng-template>
+	<button mat-icon-button (click)="toggleSidenav()">
+		<mat-icon>menu</mat-icon>
+	</button>
+	<span class="title">{{ title }}</span>
+	<span class="spacer"></span>
+	<!-- <ng-content select="[header-actions]"></ng-content> -->
+	<div class="search-container">
+		<input 
+			type="text" 
+			placeholder="Search" 
+			class="search-input" 
+			[(ngModel)]="searchText"
+			(ngModelChange)="onSearchTermChange()" 
+		/>
+		@if (searchText) {
+			<mat-icon 
+				class='clear-btn'
+				(click)="searchText=''"
+			>close</mat-icon>
+		}
+	</div>
+	<ng-container *ngIf="authService.isAuthenticated()">
+		<button mat-icon-button [routerLink]="'/add-product'">
+			<mat-icon>add_circle</mat-icon>
+		</button>
+	</ng-container>
+	<ng-container *ngIf="authService.isAuthenticated(); else loginRedirect">
+		<button mat-icon-button [matMenuTriggerFor]="menu">
+			<mat-icon>account_circle</mat-icon>
+		</button>
+	</ng-container>
+	<ng-template #loginRedirect>
+		<button mat-icon-button (click)="router.navigate(['/login'])">
+			<mat-icon>login</mat-icon>
+		</button>
+	</ng-template>
 </mat-toolbar>
 
 <mat-menu #menu="matMenu">
-    <button mat-menu-item [routerLink]="'/profile'">
-        <mat-icon>edit</mat-icon>
-        <span>Edit Profile</span>
-    </button>
-    <button mat-menu-item (click)="confirmationDialog({
+	<button mat-menu-item [routerLink]="'/profile'">
+		<mat-icon>edit</mat-icon>
+		<span>Edit Profile</span>
+	</button>
+	<button mat-menu-item (click)="confirmationDialog({
         title: 'Confirm Logout',
         subtitle: 'Are you sure you want to logout your account?',
         cancelBtn: 'Cancel',
         confirmBtn: 'Logout',
         func: logout,
     })">
-        <mat-icon>logout</mat-icon>
-        <span>Logout</span>
-    </button>
-    <button mat-menu-item (click)="confirmationDialog({
+		<mat-icon>logout</mat-icon>
+		<span>Logout</span>
+	</button>
+	<button mat-menu-item (click)="confirmationDialog({
         title: 'Confirm Delete Account',
         subtitle: 'Are you sure you want to delete your account?',
         cancelBtn: 'Cancel',
         confirmBtn: 'Delete',
         func: deleteAccount,
     })">
-        <mat-icon>delete</mat-icon>
-        <span>Delete Account</span>
-    </button>
+		<mat-icon>delete</mat-icon>
+		<span>Delete Account</span>
+	</button>
 </mat-menu>
 
 <ng-template #modalBody>
-    <div class="confim-body">
-        {{ modalSubtitle }}
-    </div>
+	<div class="confim-body">
+		{{ modalSubtitle }}
+	</div>
 </ng-template>

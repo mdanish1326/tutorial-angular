@@ -1,5 +1,5 @@
 import { Component, OnInit, TemplateRef, ViewChild, inject } from '@angular/core';
-import { NgOptimizedImage } from '@angular/common';
+import { CommonModule, NgOptimizedImage } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatInputModule } from '@angular/material/input';
@@ -17,17 +17,21 @@ import { IProduct } from '../../model/Product.model';
 import { greaterThanZeroValidator } from '../../validations/common.validation';
 import { AuthService } from '../../services/auth.service';
 import { ShortenPipe } from '../../Pipes/shorten.pipe';
+import { FilterPipe } from '../../Pipes/filter.pipe';
+import { SearchService } from '../../services/search.service';
 
 @Component({
   selector: 'app-home',
   standalone: true,
   imports: [
+    CommonModule,
     NgOptimizedImage,
     MatButtonModule,
     MatCardModule,
     JsonPipe,
     AsyncPipe,
     ShortenPipe,
+    FilterPipe,
     GenericModalComponent,
     MatDialogModule,
     MatInputModule,
@@ -51,11 +55,14 @@ export class HomeComponent implements OnInit {
   productService = inject(ProductsService);
   snackbarService = inject(SnackbarService);
   authService = inject(AuthService);
+  searchService = inject(SearchService);
+
   products: IProduct[] = [];
   $loading = new Subject<boolean>();
   error: string | null = null;
   totalProducts = 100;
   currentPageSize = 10;
+  searchText = '';
 
   productForm = new FormGroup<any>({
     title: new FormControl('', [Validators.required]),
@@ -74,6 +81,9 @@ export class HomeComponent implements OnInit {
 
   ngOnInit(): void {
     this.getProducts();
+    this.searchService.currentSearchTerm.subscribe((searchText) => {
+      this.searchText = searchText;
+    })
   }
 
   getProducts(limit: number = 10, skip: number = 0) {

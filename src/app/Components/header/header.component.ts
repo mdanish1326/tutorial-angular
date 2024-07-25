@@ -11,6 +11,9 @@ import { MAT_DIALOG_DATA, MatDialog, MatDialogModule, MatDialogRef } from '@angu
 import { GenericModalComponent } from '../generic-modal/generic-modal.component';
 import { AuthService } from '../../services/auth.service';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { MatFormField, MatInput, MatLabel } from '@angular/material/input';
+import { SearchService } from '../../services/search.service';
 
 
 interface DialogData {
@@ -26,11 +29,15 @@ interface DialogData {
   standalone: true,
   imports: [
     CommonModule,
+    FormsModule,
     MatButtonModule,
     MatIconModule,
     MatToolbarModule,
     MatMenuModule,
     MatDialogModule,
+    MatInput,
+    MatLabel,
+    MatFormField,
     SideNavigationComponent,
     RouterLink
   ],
@@ -46,16 +53,22 @@ export class HeaderComponent {
 
   localStorageService = inject(LocalStorageService);
   authService = inject(AuthService);
+  searchService = inject(SearchService);
 
   @ViewChild('modalBody') modalBody!: TemplateRef<HTMLElement>;
   @Input() title: string = 'Header Title';
   modalSubtitle: string = 'Subtitle';
+  searchText = '';
 
   constructor(
     private sidenavService: SidenavService,
     private dialog: MatDialog,
     public router: Router,
   ) { }
+
+  onSearchTermChange() {
+    this.searchService.changeSearchTerm(this.searchText);
+  }
 
   toggleSidenav() {
     this.sidenavService.toggleSidenav();
