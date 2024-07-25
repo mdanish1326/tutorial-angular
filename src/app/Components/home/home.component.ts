@@ -56,13 +56,15 @@ export class HomeComponent implements OnInit {
   snackbarService = inject(SnackbarService);
   authService = inject(AuthService);
   searchService = inject(SearchService);
+  dialog: MatDialog = inject(MatDialog);
 
   products: IProduct[] = [];
   $loading = new Subject<boolean>();
   error: string | null = null;
   totalProducts = 100;
   currentPageSize = 10;
-  searchText = '';
+  //searchText = Obseravable<string>; then we can initialize this in construnctor.
+  searchText$ = this.searchService.currentSearchTerm;
 
   productForm = new FormGroup<any>({
     title: new FormControl('', [Validators.required]),
@@ -77,13 +79,8 @@ export class HomeComponent implements OnInit {
     map(status => status === 'VALID')
   );
 
-  constructor(private dialog: MatDialog) { }
-
   ngOnInit(): void {
     this.getProducts();
-    this.searchService.currentSearchTerm.subscribe((searchText) => {
-      this.searchText = searchText;
-    })
   }
 
   getProducts(limit: number = 10, skip: number = 0) {

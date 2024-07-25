@@ -70,6 +70,11 @@ export class HeaderComponent {
     this.searchService.changeSearchTerm(this.searchText);
   }
 
+  onSearchClear() {
+    this.searchText = '';
+    this.onSearchTermChange();
+  }
+
   toggleSidenav() {
     this.sidenavService.toggleSidenav();
   }
