@@ -16,6 +16,7 @@ import { SnackbarService } from '../../services/snackbar.service';
 import { IProduct } from '../../model/Product.model';
 import { greaterThanZeroValidator } from '../../validations/common.validation';
 import { AuthService } from '../../services/auth.service';
+import { ShortenPipe } from '../../Pipes/shorten.pipe';
 
 @Component({
   selector: 'app-home',
@@ -26,6 +27,7 @@ import { AuthService } from '../../services/auth.service';
     MatCardModule,
     JsonPipe,
     AsyncPipe,
+    ShortenPipe,
     GenericModalComponent,
     MatDialogModule,
     MatInputModule,

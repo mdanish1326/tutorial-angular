@@ -19,7 +19,7 @@
 		</div>
 		<mat-card-content>
 			<p>
-				{{product.description}}
+				{{product.description | shorten: 200 }}
 			</p>
 		</mat-card-content>
 		<mat-card-actions>
