@@ -1,11 +1,11 @@
-import { Component, Input, TemplateRef, ViewChild, inject } from '@angular/core';
+import { Component, Input, OnInit, TemplateRef, ViewChild, inject } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatMenuModule } from '@angular/material/menu';
 import { SideNavigationComponent } from '../side-navigation/side-navigation.component';
 import { SidenavService } from '../../services/sidenav.service';
-import { Router, RouterLink } from '@angular/router';
+import { Event, NavigationEnd, Router, RouterLink } from '@angular/router';
 import { LocalStorageService } from '../../services/local-storage.service';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { GenericModalComponent } from '../generic-modal/generic-modal.component';
@@ -14,11 +14,12 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { MatFormField, MatInput, MatLabel } from '@angular/material/input';
 import { SearchService } from '../../services/search.service';
+import { filter } from 'rxjs';
 
 
 interface DialogData {
   title: string,
-  subtitle: string
+  subtitle: string,
   cancelBtn: string,
   confirmBtn: string,
   func: () => void,
@@ -49,7 +50,7 @@ interface DialogData {
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss'
 })
-export class HeaderComponent {
+export class HeaderComponent implements OnInit {
 
   localStorageService = inject(LocalStorageService);
   authService = inject(AuthService);
@@ -59,12 +60,27 @@ export class HeaderComponent {
   @Input() title: string = 'Header Title';
   modalSubtitle: string = 'Subtitle';
   searchText = '';
+  showSearch = this.router.url === '/';
 
   constructor(
     private sidenavService: SidenavService,
     private dialog: MatDialog,
     public router: Router,
   ) { }
+
+  ngOnInit(): void {
+    this.updateSearchVisibility(this.router.url);
+    this.router.events.pipe(
+      filter((event: Event): event is NavigationEnd => event instanceof NavigationEnd)
+    ).subscribe((event: NavigationEnd) => {
+      this.updateSearchVisibility(event.url);
+    });
+  }
+
+  private updateSearchVisibility(url: string): void {
+    this.showSearch = url === '/';
+  }
+
 
   onSearchTermChange() {
     this.searchService.changeSearchTerm(this.searchText);
@@ -102,12 +118,10 @@ export class HeaderComponent {
   }
 
   logout() {
-    this.localStorageService.remove('isAuthenticated');
-    this.router.navigate(['/login']);
+    this.authService.logout();
   }
 
   deleteAccount() {
-    this.localStorageService.remove('user');
-    this.router.navigate(['/signup']);
+    this.authService.deleteAccount();
   }
 }

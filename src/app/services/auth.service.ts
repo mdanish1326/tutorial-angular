@@ -1,6 +1,7 @@
 import { Injectable, inject } from '@angular/core';
 import { LocalStorageService } from './local-storage.service';
 import { UserMetadata } from '../model/User.model';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -8,6 +9,7 @@ import { UserMetadata } from '../model/User.model';
 export class AuthService {
 
   localStorageService = inject(LocalStorageService)
+  router = inject(Router)
 
   constructor() { }
 
@@ -27,5 +29,15 @@ export class AuthService {
     } else {
       return { exist: false, valid: false };
     }
+  }
+
+  logout() {
+    this.localStorageService.remove('isAuthenticated');
+    this.router.navigate(['/login']);
+  }
+
+  deleteAccount() {
+    this.localStorageService.remove('user');
+    this.router.navigate(['/signup']);
   }
 }

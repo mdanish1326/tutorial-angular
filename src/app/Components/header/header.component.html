@@ -5,7 +5,7 @@
 	<span class="title">{{ title }}</span>
 	<span class="spacer"></span>
 	<!-- <ng-content select="[header-actions]"></ng-content> -->
-	<div class="search-container">
+	<div *ngIf="showSearch" class="search-container">
 		<input 
 			type="text" 
 			placeholder="Search" 

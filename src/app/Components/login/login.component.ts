@@ -39,7 +39,7 @@ export class LoginComponent extends AuthFormBase {
       const { exist, valid }: UserMetadata = this.authService.isUserValid(username, password);
       if (exist && valid) {
         this.snackbarService.openSnackBar('Login Successful!');
-        this.router.navigate(['/home']);
+        this.router.navigate(['/']);
       } else if (!exist) {
         this.snackbarService.openSnackBar('User does not exist, Signup first!');
       } else if (!valid) {
